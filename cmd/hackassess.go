@@ -1,7 +1,11 @@
 package main
 
-import "HackAssess/internal/http"
+import (
+	"HackAssess/internal/dao"
+	"HackAssess/internal/http"
+)
 
-func main(){
+func main() {
+	dao.DatabaseInit()
 	http.Init()
 }
