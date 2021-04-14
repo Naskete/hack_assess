@@ -13,8 +13,11 @@ require (
 	github.com/ncuhome/go-common v0.0.0-20201118121238-c533b6a1d160
 	github.com/ugorji/go v1.2.5 // indirect
 	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2 // indirect
-	golang.org/x/sys v0.0.0-20210403161142-5e06dd20ab57 // indirect
-	golang.org/x/text v0.3.6 // indirect
+	golang.org/x/net v0.0.0-20210410081132-afb366fc7cd1 // indirect
+	golang.org/x/sys v0.0.0-20210412220455-f1c623a9e750 // indirect
+	google.golang.org/genproto v0.0.0-20210413151531-c14fb6ef47c3 // indirect
+	google.golang.org/grpc v1.37.0
+	google.golang.org/protobuf v1.26.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gorm.io/driver/mysql v1.0.5
 	gorm.io/gorm v1.21.3
