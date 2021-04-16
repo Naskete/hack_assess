@@ -2,7 +2,7 @@ package model
 
 type Director struct {
 	ID          int    `json:"id"`
-	UserId      int    `json:"user_id" gorm:"unique"`
+	UserId      int    `json:"user_id"`
 	Slogan      int    `json:"slogan"`
 	Promotion   int    `json:"promotion"`
 	Idea        int    `json:"idea"`
@@ -11,14 +11,15 @@ type Director struct {
 	Research    int    `json:"research"`
 	Product     int    `json:"product"`
 	Interactive int    `json:"interactive"`
-	Group       string `json:"group"`
+	Total       int    `json:"total"`
+	GroupID     string `json:"group_id"`
 	Position    string `json:"position"`
-	Name        string `json:"name"`
+	Tag         string `json:"tag" gorm:"unique"`
 }
 
 type Product struct {
 	ID           int    `json:"id"`
-	UserId       int    `json:"user_id" gorm:"unique"`
+	UserId       int    `json:"user_id"`
 	Innovation   int    `json:"innovation"`
 	Rationality  int    `json:"rationality"`
 	Conformity   int    `json:"conformity"`
@@ -29,14 +30,15 @@ type Product struct {
 	Req          int    `json:"req"`
 	Project      int    `json:"project"`
 	Plan         int    `json:"plan"`
-	Group        string `json:"group"`
+	Total        int    `json:"total"`
+	GroupID      string `json:"group_id"`
 	Position     string `json:"position"`
-	Name         string `json:"name"`
+	Tag          string `json:"tag" gorm:"unique"`
 }
 
 type Design struct {
 	ID           int    `json:"id"`
-	UserId       int    `json:"user_id" gorm:"unique"`
+	UserId       int    `json:"user_id"`
 	Design       int    `json:"design"`
 	Logo         int    `json:"logo"`
 	Beauty       int    `json:"beauty"`
@@ -46,28 +48,30 @@ type Design struct {
 	Font         int    `json:"font"`
 	Thinking     int    `json:"thinking"`
 	Bonus        int    `json:"bonus"`
-	Group        string `json:"group"`
+	Total        int    `json:"total"`
+	GroupID      string `json:"group_id"`
 	Position     string `json:"position"`
-	Name         string `json:"name"`
+	Tag          string `json:"tag" gorm:"unique"`
 }
 
 type Front struct {
 	ID            int    `json:"id"`
-	UserId        int    `json:"user_id" gorm:"unique"`
+	UserId        int    `json:"user_id"`
 	Function      int    `json:"function"`
 	Fit           int    `json:"fit"`
 	Layout        int    `json:"layout"`
 	Encapsulation int    `json:"encapsulation"`
 	Resources     int    `json:"resources"`
 	Docking       int    `json:"docking"`
-	Group         string `json:"group"`
+	Total         int    `json:"total"`
+	GroupID       string `json:"group_id"`
 	Position      string `json:"position"`
-	Name          string `json:"name"`
+	Tag           string `json:"tag" gorm:"unique"`
 }
 
 type Back struct {
 	ID            int    `json:"id"`
-	UserId        int    `json:"user_id" gorm:"unique"`
+	UserId        int    `json:"user_id"`
 	Integrity     int    `json:"integrity"`
 	Property      int    `json:"property"`
 	Scalability   int    `json:"scalability"`
@@ -80,14 +84,14 @@ type Back struct {
 	Document      int    `json:"document"`
 	Coverage      int    `json:"coverage"`
 	Solution      int    `json:"solution"`
-	Group         string `json:"group"`
+	GroupID       string `json:"group_id"`
 	Position      string `json:"position"`
-	Name          string `json:"name"`
+	Tag           string `json:"tag" gorm:"unique"`
 }
 
 type Show struct {
 	ID          int    `json:"id"`
-	UserId      int    `json:"user_id" gorm:"unique"`
+	UserId      int    `json:"user_id"`
 	Performance int    `json:"performance"`
 	Project     int    `json:"project"`
 	Framework   int    `json:"framework"`
@@ -97,7 +101,8 @@ type Show struct {
 	Colour      int    `json:"colour"`
 	Animation   int    `json:"animation"`
 	Writing     int    `json:"writing"`
-	Group       string `json:"group"`
+	Total       int    `json:"total"`
+	GroupID     string `json:"group_id"`
 	Position    string `json:"position"`
-	Name        string `json:"name"`
+	Tag         string `json:"tag" gorm:"unique"`
 }
