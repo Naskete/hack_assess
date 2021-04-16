@@ -7,8 +7,9 @@ import (
 	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/ncuhome/go-common/format"
+	account "github.com/ncuhome/us-backend/account/pkg"
+	"github.com/ncuhome/us-backend/feedback/pkg"
 	"io/ioutil"
-	"log"
 	"net/http"
 )
 
@@ -25,43 +26,44 @@ type response struct {
 	Token     string `json:"token"`      // 保存登录状态
 }
 
-type auth struct {
-	Token string `json:"token"`
-}
-
-func login(c *gin.Context) (*response, error) {
-	// TODO 添加评委判断
+func login(c *gin.Context) (map[string]interface{}, error) {
+	// 添加评委判断
 	result, err := usLogin(c)
 	if err != nil {
-		return nil, err
+		return format.FormatErrReturn(err)
 	}
-	return result, nil
+	grade := account.JudgeGrade(result.StudentID)
+	if grade < 2 || result.StudentID =="6109119101" || result.StudentID=="6109119121" {
+		return format.FormatErrReturn(errors.New("sorry, Contestants could not grade"))
+	}
+	return format.FormatNormalReturn(result, "success")
 }
 
 func giveMarks(c *gin.Context) (map[string]interface{}, error) {
-	// TODO 添加登录验证
+	// 添加登录验证
+	token := pkg.GetToken(c)
+	// 验证token合法性
+	_, err := account.ParseToken(token)
+	if token == "" || err != nil{
+		return format.FormatErrReturn(errors.New("please login"))
+	}
 	if e := dao.Mark(c); e != nil {
-		return format.FormatErrReturn(e, "Failed to mark")
+		return format.FormatErrReturn(e, "please do not grade again")
 	}
 	return format.FormatNormalReturn(nil,"successful")
 }
 
 func usLogin(c *gin.Context) (*response, error) {
 	var usr user
-	//if e := c.ShouldBind(&usr); e != nil {
-	//	log.Println("username or password can not be null")
-	//	return nil, e
-	//}
 	_ = c.ShouldBind(&usr)
 	data, _ := json.Marshal(usr)
 	body := bytes.NewBuffer(data)
 	req, err := http.Post(target, "application/json;charset=utf-8", body)
 	if err != nil {
-		log.Println("error")
 		return nil, err
 	}
 	if req.StatusCode==403{
-		return nil, errors.New("密码错误")
+		return nil, errors.New("wrong password")
 	}
 	result, err := ioutil.ReadAll(req.Body)
 	var res *response
