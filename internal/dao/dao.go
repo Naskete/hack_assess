@@ -37,11 +37,10 @@ func getDsn() string {
 	if err != nil {
 		log.Println(err)
 	}
-	return values.Get("HackAssess_DSN").String("")
+	return values.Get("HACKASSESS_DSN").String("")
 }
 
 func (d *Dao) autoMigrate() {
-	//_ = d.DB.AutoMigrate(&model.Score{})
 	_ = d.DB.AutoMigrate(&model.Director{})
 	_ = d.DB.AutoMigrate(&model.Product{})
 	_ = d.DB.AutoMigrate(&model.Design{})
