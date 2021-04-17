@@ -4,7 +4,7 @@
 ### direct
 > ID          int    `json:"id"` 
 > 
-> UserId      int    `json:"user_id" gorm:"unique"`
+> UserId      int    `json:"user_id"`
 > 
 > Slogan      int    `json:"slogan"`    // 产品slogan
 > 
@@ -22,17 +22,19 @@
 > 
 > Interactive int    `json:"interactive"`   // 产品交互文案
 > 
-> Group       string `json:"group"`
+> Total       int    `json:"total""`
+> 
+> GroupID     string `json:"group_id"`
 > 
 > Position    string `json:"position"`
 > 
-> Name        string `json:"name"`
+> Tag         string  `json:"tag" gorm:"unique"`
 
 ### product
 
 > ID           int    `json:"id"`
 > 
-> UserId       int    `json:"user_id" gorm:"unique"`
+> UserId       int    `json:"user_id"`
 > 
 > Innovation   int    `json:"innovation"`   //产品创新性
 > 
@@ -54,18 +56,20 @@
 > 
 > Plan         int    `json:"plan"` // 迭代计划
 > 
-> Group        string `json:"group"` 
+> Total       int    `json:"total""`
+>
+> GroupID     string `json:"group_id"`
 > 
 > Position     string `json:"position"`
 > 
-> Name         string `json:"name"`
+> Tag         string  `json:"tag" gorm:"unique"`
 
 
 ### Design
 
 >ID           int    `json:"id"`
 > 
-> UserId       int    `json:"user_id" gorm:"unique"`
+> UserId       int    `json:"user_id"`
 > 
 > Design       int    `json:"design"`   // 设计规范
 >  
@@ -85,17 +89,19 @@
 > 
 > Bonus        int    `json:"bonus"`    // 加分项
 > 
-> Group        string `json:"group"`
-> 
+> Total       int    `json:"total""`
+>
+> GroupID     string `json:"group_id"`
+>
 > Position     string `json:"position"`
 > 
-> Name         string `json:"name"`
+> Tag         string  `json:"tag" gorm:"unique"`
 
 ### Front
 
 > ID            int    `json:"id"`
 > 
-> UserId        int    `json:"user_id" gorm:"unique"`
+> UserId        int    `json:"user_id"`
 > 
 > Function      int    `json:"function"`    //功能完整性
 > 
@@ -105,21 +111,23 @@
 > 
 > Encapsulation int    `json:"encapsulation"`   // 业务逻辑
 > 
-> Resources     int    `json:"resources"`   // 资源呀搜
+> Resources     int    `json:"resources"`   // 资源压缩
 > 
 > Docking       int    `json:"docking"`     // 与后端对接完整度
 > 
-> Group         string `json:"group"` 
+> Total         int    `json:"total""`
+>
+> GroupID       string `json:"group_id"`
 > 
 > Position      string `json:"position"`
 > 
-> Name          string `json:"name"`
+> Tag         string  `json:"tag" gorm:"unique"`
 
 ### Back
 
 > ID            int    `json:"id"`
 > 
-> UserId        int    `json:"user_id" gorm:"unique"`
+> UserId        int    `json:"user_id"`
 > 
 > Integrity     int    `json:"integrity"`   // 完整性
 > 
@@ -145,18 +153,19 @@
 > 
 > Solution      int    `json:"solution"`    // 现场解决方案
 > 
-> Group         string `json:"group"`
-> 
+> Total         int    `json:"total""`
+>
+> GroupID       string `json:"group_id"`
+>
 > Position      string `json:"position"`
 > 
-> Name          string `json:"name"`
-
+> Tag         string  `json:"tag" gorm:"unique"`
 
 ### Show
 
 >ID          int    `json:"id"`
 > 
-> UserId      int    `json:"user_id" gorm:"unique"`
+> UserId      int    `json:"user_id"`
 > 
 > Performance int    `json:"performance"`   // 路演表现
 > 
@@ -176,11 +185,13 @@
 > 
 > Writing     int    `json:"writing"`   // 文案
 > 
-> Group       string `json:"group"`
-> 
+> Total       int    `json:"total""`
+>
+> GroupID     string `json:"group_id"`
+>
 > Position    string `json:"position"`
-> 
-> Name        string `json:"name"`
+>
+> Tag         string  `json:"tag" gorm:"unique"`
 
 ## Login 
 
@@ -214,19 +225,18 @@ id: 组号 （1-n
 
 以front为例
 
-Date:
+Date
 
 ```json
 {
     "function":5,
     "fit":2,
     "layout":12,
-    "eccapsulation":10,
+    "encapsulation":10,
     "docking":19,
     "resources":18,
     "user_id":1234,
-    "group":"2",
-    "name":"name"
+    "group_id":"2",
 }
 ```
 
