@@ -84,6 +84,7 @@ type Back struct {
 	Document      int    `json:"document"`
 	Coverage      int    `json:"coverage"`
 	Solution      int    `json:"solution"`
+	Total         int    `json:"total"`
 	GroupID       string `json:"group_id"`
 	Position      string `json:"position"`
 	Tag           string `json:"tag" gorm:"unique"`
