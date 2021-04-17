@@ -229,6 +229,7 @@ Date
 
 ```json
 {
+    // 打分项，user_id, group_id
     "function":5,
     "fit":2,
     "layout":12,
