@@ -13,7 +13,6 @@ func Init() {
 	_ = e.Run(":8088")
 }
 
-// TODO 导表
 func getScoreData(e *gin.Engine) {
 	e.POST("/login", func(c *gin.Context) {
 		if result, e := login(c); e != nil {
@@ -27,6 +26,13 @@ func getScoreData(e *gin.Engine) {
 	e.POST("/:group/:id", func(c *gin.Context) {
 		if result, e := giveMarks(c); e != nil {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, result)
+		} else {
+			c.JSON(http.StatusOK, result)
+		}
+	})
+	e.GET("/excel", func(c *gin.Context) {
+		if result, err := getExcel(c); err != nil {
+			c.AbortWithStatusJSON(http.StatusBadRequest, result)
 		} else {
 			c.JSON(http.StatusOK, result)
 		}

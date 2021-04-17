@@ -7,6 +7,19 @@ import (
 	"strconv"
 )
 
+const (
+	sql1 = "SELECT AVG(total) AS score FROM directors WHERE group_id = ?"
+	sql2 = "SELECT AVG(total) AS score FROM products WHERE group_id = ?"
+	sql3 = "SELECT AVG(total) AS score FROM designs WHERE group_id = ?"
+	sql4 = "SELECT AVG(total) AS score FROM fronts WHERE group_id = ?"
+	sql5 = "SELECT AVG(total) AS score FROM backs WHERE group_id = ?"
+	sql6 = "SELECT AVG(total) AS score FROM shows WHERE group_id = ?"
+)
+
+type score struct {
+	Score float32 `json:"score"`
+}
+
 // Mark 评分
 func Mark(c *gin.Context) error {
 	group := c.Param("group")
@@ -22,7 +35,6 @@ func Mark(c *gin.Context) error {
 		if e := d.DB.Create(&score).Error; e != nil {
 			return e
 		}
-		// TODO research 0
 	case "product":
 		var score model.Product
 		_ = c.ShouldBind(&score)
@@ -75,4 +87,20 @@ func Mark(c *gin.Context) error {
 		}
 	}
 	return nil
+}
+
+func GetExcelData() []float32{
+	var sql []string
+	var result []float32
+	sql = append(sql, sql1,sql2,sql3,sql4,sql5,sql6)
+	// i 组
+	for i:=1; i <= 7; i++{
+		// 第 j 条sql语句
+		for j:=0; j < 6; j++{
+			var mark score
+			d.DB.Raw(sql[j],i).Scan(&mark)
+			result = append(result, mark.Score)
+		}
+	}
+	return result
 }

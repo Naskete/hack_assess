@@ -5,14 +5,19 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
+	"github.com/360EntSecGroup-Skylar/excelize"
 	"github.com/gin-gonic/gin"
 	"github.com/ncuhome/go-common/format"
 	account "github.com/ncuhome/us-backend/account/pkg"
 	"github.com/ncuhome/us-backend/feedback/pkg"
 	"io/ioutil"
 	"net/http"
+	"net/url"
+	"strconv"
 )
 
+// TODO 优化
 const target = "https://api-usv2.ncuos.com/api/user/login"
 
 type user struct {
@@ -69,4 +74,31 @@ func usLogin(c *gin.Context) (*response, error) {
 	var res *response
 	_ = json.Unmarshal(result, &res)
 	return res, nil
+}
+
+func getExcel(c *gin.Context) (map[string]interface{},error){
+	data := dao.GetExcelData()
+	if data == nil{
+		return format.FormatErrReturn(errors.New("failed to export excel, the data is null"))
+	}
+	filename := fmt.Sprint("hackweek评分结果表.xlsx")
+	fileName := url.QueryEscape(filename)
+	c.Writer.Header().Set("Content-type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+	c.Writer.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=%s", fileName))
+	createExcel(data, c.Writer)
+	return format.FormatNormalReturn(nil, "success")
+}
+
+func createExcel(data []float32, w http.ResponseWriter) {
+	file := excelize.NewFile()
+	//// 表头
+	file.SetSheetRow("Sheet1", "A1", &[]interface{}{"组别", "运营", "产品", "设计", "前端","后端","路演","总分"})
+	for i := 0; i < 6; i++{
+		// 获取每一组的成绩
+		d := data[i*6:i*6+6]
+		rowIndex := strconv.Itoa(i+2)
+		location := "A"+rowIndex
+		file.SetSheetRow("Sheet1", location, &[]interface{}{i+1,d[0],d[1],d[2],d[3],d[4],d[5], 90})
+	}
+	_ = file.Write(w)
 }
