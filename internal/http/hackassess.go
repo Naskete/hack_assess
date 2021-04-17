@@ -33,7 +33,7 @@ func login(c *gin.Context) (map[string]interface{}, error) {
 		return format.FormatErrReturn(err)
 	}
 	grade := account.JudgeGrade(result.StudentID)
-	if grade < 2 || result.StudentID =="6109119101" || result.StudentID=="6109119121" {
+	if grade < 2 || result.StudentID == "6109119101" || result.StudentID == "6109119121" {
 		return format.FormatErrReturn(errors.New("sorry, Contestants could not grade"))
 	}
 	return format.FormatNormalReturn(result, "success")
@@ -44,13 +44,13 @@ func giveMarks(c *gin.Context) (map[string]interface{}, error) {
 	token := pkg.GetToken(c)
 	// 验证token合法性
 	_, err := account.ParseToken(token)
-	if token == "" || err != nil{
+	if token == "" || err != nil {
 		return format.FormatErrReturn(errors.New("please login"))
 	}
 	if e := dao.Mark(c); e != nil {
 		return format.FormatErrReturn(e, "please do not grade again")
 	}
-	return format.FormatNormalReturn(nil,"successful")
+	return format.FormatNormalReturn(nil, "successful")
 }
 
 func usLogin(c *gin.Context) (*response, error) {
@@ -62,7 +62,7 @@ func usLogin(c *gin.Context) (*response, error) {
 	if err != nil {
 		return nil, err
 	}
-	if req.StatusCode==403{
+	if req.StatusCode == 403 {
 		return nil, errors.New("wrong password")
 	}
 	result, err := ioutil.ReadAll(req.Body)
