@@ -96,9 +96,10 @@ func createExcel(data []float32, w http.ResponseWriter) {
 	for i := 0; i < 6; i++{
 		// 获取每一组的成绩
 		d := data[i*6:i*6+6]
+		res := d[0]*5/28 + d[1]*5/28 + d[2]*5/28 + d[3]/7 + d[4]/7 +d[5]*5/28
 		rowIndex := strconv.Itoa(i+2)
 		location := "A"+rowIndex
-		file.SetSheetRow("Sheet1", location, &[]interface{}{i+1,d[0],d[1],d[2],d[3],d[4],d[5], 90})
+		file.SetSheetRow("Sheet1", location, &[]interface{}{i+1,d[0],d[1],d[2],d[3],d[4],d[5], fmt.Sprintf("%.2f", res)})
 	}
 	_ = file.Write(w)
 }
