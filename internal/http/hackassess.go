@@ -68,7 +68,8 @@ func usLogin(c *gin.Context) (*response, error) {
 		return nil, err
 	}
 	if req.StatusCode == 403 {
-		return nil, errors.New("wrong password")
+		// TODO  区别优化？
+		return nil, errors.New("wrong password or user not exists")
 	}
 	result, err := ioutil.ReadAll(req.Body)
 	var res *response
