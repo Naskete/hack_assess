@@ -93,7 +93,7 @@ func GetExcelData() []float32{
 	var sql []string
 	var result []float32
 	sql = append(sql, sql1,sql2,sql3,sql4,sql5,sql6)
-	// i 组
+	// i 组 参数总数
 	for i:=1; i <= 7; i++{
 		// 第 j 条sql语句
 		for j:=0; j < 6; j++{

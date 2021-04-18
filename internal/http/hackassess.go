@@ -94,7 +94,7 @@ func createExcel(data []float32, w http.ResponseWriter) {
 	file := excelize.NewFile()
 	//// 表头
 	file.SetSheetRow("Sheet1", "A1", &[]interface{}{"组别", "运营", "产品", "设计", "前端","后端","路演","总分"})
-	for i := 0; i < 6; i++{
+	for i := 0; i <= 6; i++{
 		// 获取每一组的成绩
 		d := data[i*6:i*6+6]
 		res := d[0]*5/28 + d[1]*5/28 + d[2]*5/28 + d[3]/7 + d[4]/7 +d[5]*5/28
